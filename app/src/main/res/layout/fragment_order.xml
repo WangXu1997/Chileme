@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chileme.OrderFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+
+        <LinearLayout
+
+            android:layout_width="340dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/background_material_dark"
+                    android:text="我的订单"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/all_list_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部订单 >"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:onClick=""
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="#4169E1"/>
+
+            </RelativeLayout>
+            <com.example.chileme.ListViewForScrollView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+            </com.example.chileme.ListViewForScrollView>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="查看更多 ∨"
+                android:textSize="14sp"
+                android:background="#ffffff"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#D3D3D3"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/background_material_dark"
+                    android:text="附近买过"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"/>
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/background_material_dark"
+                    android:text="附近收藏"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+            <com.example.chileme.ListViewForScrollView
+                android:id="@+id/listview2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
+
+            </com.example.chileme.ListViewForScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
