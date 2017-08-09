@@ -120,7 +120,7 @@ public class OrderFragment extends Fragment {
 
     private void doEvent(){
         Request request = new Request.Builder()
-                .url("http://192.168.40.23:8080/practice2/order_findAllOrder")
+                .url("http://192.168.137.1:8080/practice2/order_findAllOrder")
                 .get()
                 .build();
         exec(request,1);
@@ -171,7 +171,7 @@ public class OrderFragment extends Fragment {
 //    }
 public void enterOrder(View view){
     Request request = new Request.Builder()
-            .url("http://192.168.40.23:8080/practice2/order_enterOrder")
+            .url("http://192.168.137.1:8080/practice2/order_enterOrder")
             .get()
             .build();
     Fragment contentFragment = new OrderFragment();

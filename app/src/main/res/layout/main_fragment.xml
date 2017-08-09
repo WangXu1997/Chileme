@@ -23,8 +23,7 @@
             android:layout_height="match_parent"
             android:text="首页"
             android:gravity="center"
-            android:textColor="#000"
-            android:background="#4169E1"/>
+            android:textColor="#4169E1"/>
         <View
             android:layout_width="0dp"
             android:layout_weight="0.5"

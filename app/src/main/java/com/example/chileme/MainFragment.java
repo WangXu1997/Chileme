@@ -5,7 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,7 +16,7 @@ import org.xutils.x;
 import okhttp3.Request;
 
 @ContentView(R.layout.main_fragment)
-public class MainFragment extends AppCompatActivity {
+public class MainFragment extends FragmentActivity {
 
     @ViewInject(R.id.firstpage_frag)
     private TextView firstpage_frag;
@@ -44,7 +44,34 @@ public class MainFragment extends AppCompatActivity {
 
         fragmentManager = getFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        Fragment init=new FirstPageFragment();
+        Fragment init=new Fragment();
+        Intent intent=getIntent();
+        int flag=intent.getIntExtra("flag",1);
+        switch (flag){
+            case 1:
+                init=new FirstPageFragment();
+                firstpage_frag.setBackgroundColor(0Xff4169E1);
+                firstpage_frag.setTextColor(0xff000000);
+                break;
+            case 2:
+                init=new DiscoverFragment();
+                discover_frag.setBackgroundColor(0Xff4169E1);
+                discover_frag.setTextColor(0xff000000);
+                break;
+            case 3:
+                init=new OrderFragment();
+                order_frag.setBackgroundColor(0Xff4169E1);
+                order_frag.setTextColor(0xff000000);
+                break;
+            case 4:
+                init=new PersonalFragment();
+                personal_frag.setBackgroundColor(0Xff4169E1);
+                personal_frag.setTextColor(0xff000000);
+                break;
+            default:
+                break;
+        }
+
         transaction.replace(R.id.fragmentPager, init,"fragment");
         transaction.commit();
     }
@@ -99,7 +126,7 @@ public class MainFragment extends AppCompatActivity {
     };
     public static  void enterOrder(View view){
         Request request = new Request.Builder()
-                .url("http://192.168.40.23:8080/practice2/order_enterOrder")
+                .url("http://192.168.137.1:8080/practice2/order_enterOrder")
                 .get()
                 .build();
         Fragment contentFragment = new OrderFragment();

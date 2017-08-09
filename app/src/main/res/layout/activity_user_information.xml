@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.chileme.UserInformation"
+android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/blue_background"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/jiantou_user"
+        android:layout_gravity="center"
+        android:tint="#ffffff"
+        android:onClick="return_Mine_view"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="详细信息"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点此修改"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:clickable="true"
+        android:layout_marginLeft="80dp"
+        android:layout_gravity="center"
+        android:onClick="transform_change_username"/>
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    android:background="#cccccc"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="头像"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/background_material_dark"/>
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/girl"
+        app:riv_border_color="#0000ff"
+        app:riv_border_width="2dp"
+        app:riv_oval="true"
+        android:layout_marginLeft="220dp"
+        android:layout_gravity="center"
+        android:onClick="upload_photo"
+        android:id="@+id/touxiang_user"/>
+
+</LinearLayout>
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#cccccc"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户名"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/background_material_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="zhangsan "
+        android:layout_marginLeft="200dp"
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:id="@+id/mine_username"/>
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    android:background="#cccccc"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="其他信息"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"/>
+</LinearLayout>
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#cccccc"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:src="@drawable/password_user"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密码"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/background_material_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123456"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:layout_marginLeft="200dp"
+        android:id="@+id/mine_password"/>
+
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#cccccc"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:src="@drawable/phone_user"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/background_material_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12345"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:layout_marginLeft="200dp"
+        android:id="@+id/mine_phonenumber"/>
+
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="#cccccc"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:src="@drawable/address_user"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地址"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/background_material_dark"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="天津"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:layout_marginLeft="200dp"
+        android:id="@+id/mine_address"/>
+
+
+</LinearLayout>
+<View
+    android:layout_width="match_parent"
+    android:layout_height="5dp"
+    android:background="#cccccc"/>
+
+
+</LinearLayout>
