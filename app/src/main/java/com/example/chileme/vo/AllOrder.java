@@ -7,7 +7,7 @@ package com.example.chileme.vo;
 public class AllOrder {
     private String store_name;
     private String photo_source;
-    private float totalPrice;
+    private String totalPrice;
     private boolean state;
     private String food_name;
     private int totalCount;
@@ -23,10 +23,10 @@ public class AllOrder {
     public void setPhoto_source(String photo_source) {
         this.photo_source = photo_source;
     }
-    public float getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
-    public void setTotalPrice(float totalPrice) {
+    public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
     public boolean isState() {

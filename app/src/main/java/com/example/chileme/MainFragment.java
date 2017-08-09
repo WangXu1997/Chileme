@@ -3,6 +3,7 @@ package com.example.chileme;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import okhttp3.Request;
 
 @ContentView(R.layout.main_fragment)
 public class MainFragment extends AppCompatActivity {
@@ -24,7 +27,7 @@ public class MainFragment extends AppCompatActivity {
     @ViewInject(R.id.personal_frag)
     private TextView personal_frag;
     private Fragment contentFragment;
-    private FragmentManager fragmentManager;
+    public static  FragmentManager fragmentManager;
     private FragmentTransaction transaction;
 
     @Override
@@ -80,11 +83,27 @@ public class MainFragment extends AppCompatActivity {
                     contentFragment = new PersonalFragment();
                     transaction.replace(R.id.fragmentPager, contentFragment);
                     break;
-
+                case R.id.text15:
+                    Request request = new Request.Builder()
+                            .url("http://192.168.40.23:8080/practice2/order_enterOrder")
+                            .get()
+                            .build();
+                    Intent intent=new Intent(MainFragment.this,OrderFragment.class);
+                    startActivity(intent);
+                    break;
                 default:
                     break;
             }
             transaction.commit();
         }
     };
+    public static  void enterOrder(View view){
+        Request request = new Request.Builder()
+                .url("http://192.168.40.23:8080/practice2/order_enterOrder")
+                .get()
+                .build();
+        Fragment contentFragment = new OrderFragment();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragmentPager, contentFragment);
+    }
 }
