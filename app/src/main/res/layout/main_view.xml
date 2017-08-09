@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chileme.MainViewActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/back"
+        >
+        <include
+            android:id="@+id/restaurant_head"
+            layout="@layout/main_top" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/adv" />
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gridView"
+            android:numColumns="4"
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"></GridView>
+        <include
+            android:id="@+id/shop"
+            layout="@layout/main_spinner" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

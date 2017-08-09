@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.chileme.ShopFoodActivity"
+    android:background="@drawable/back"
+    android:clickable="true"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_shop_bg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/backshop"/>
+        <ImageView
+            android:id="@+id/iv_shop"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="81dp"
+            android:background="@drawable/p1"/>
+        <RelativeLayout
+            android:id="@+id/name_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="104dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="81dp">
+            <TextView
+                android:id="@+id/tv_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:maxLines="1"
+                android:text="肯德基"
+                android:textColor="#FFFFFFFF"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_shop_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_shop_name"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:text="超值夏日新品，等你来发现！"
+                android:textColor="#a9a9a9"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/tv_shop_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_shop_summary"
+                android:layout_marginTop="4dp"
+                android:background="#FFFF00"
+                android:maxLines="1"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="品牌"
+                android:textColor="#ff000000"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_shop_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_shop_summary"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@id/tv_shop_type"
+                android:background="#1e90ff"
+                android:maxLines="1"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="蜗牛专送"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp" />
+
+        </RelativeLayout>
+    </FrameLayout>
+    <View
+        android:id="@+id/line"
+        android:layout_below="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="16dp"
+        android:background="#C2C2C2"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line">
+        <include
+            android:id="@+id/shopin"
+            layout="@layout/shop_food_spinner"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/car_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="#454545">
+        <TextView
+            android:id="@+id/car_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#32CD32"
+            android:gravity="center"
+            android:onClick="goAccount"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="去结算"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

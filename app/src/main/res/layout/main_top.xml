@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@drawable/back_title" >
+    <LinearLayout
+        android:id="@+id/linear_above_toHome"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@drawable/back_above_menushow_style"
+        android:clickable="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:src="@drawable/chileme" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageview_above_more"
+        style="@style/title_right_button"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/abc_ic_search" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="搜索美食"
+        android:background="@drawable/editsharp"
+        android:layout_alignBottom="@+id/linear_above_toHome"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
