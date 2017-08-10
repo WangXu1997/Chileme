@@ -10,26 +10,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoadingActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ChangeInformation"></activity>
-        <activity android:name=".UserInformation"></activity>
-        <activity android:name=".MainFragment">
+        <activity android:name=".LoadingActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ChangeInformation" />
+        <activity android:name=".UserInformation" />
+        <activity android:name=".MainFragment"></activity>
+        <activity android:name=".MainSpinnerActivity" />
+        <activity android:name=".MainTopActivity" />
+        <activity android:name=".MainViewActivity">
+
+        </activity>
+        <activity android:name=".ShopFoodActivity"></activity>
+        <activity android:name=".ShopFoodSpinnerActivity" />
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainSpinnerActivity"></activity>
-        <activity android:name=".MainTopActivity"></activity>
-        <activity android:name=".MainViewActivity">
-
-        </activity>
-        <activity android:name=".ShopFoodActivity">
-
-        </activity>
-        <activity android:name=".ShopFoodSpinnerActivity"></activity>
     </application>
 
 </manifest>

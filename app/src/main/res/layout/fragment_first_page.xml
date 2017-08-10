@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -5,10 +6,69 @@
     tools:context="com.example.chileme.FirstPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textfirst"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="首页" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/back"
+            >
+            <include
+                android:id="@+id/restaurant_head"
+                layout="@layout/main_top" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/adv" />
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridView"
+                android:numColumns="4"
+                android:horizontalSpacing="0dp"
+                android:verticalSpacing="0dp"></GridView>
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridView2"
+                android:numColumns="4"
+                android:horizontalSpacing="0dp"
+                android:verticalSpacing="0dp"></GridView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请选择所在的城市："/>
+                <Spinner
+                    android:id = "@+id/Spinner_city"
+                    android:layout_width = "wrap_content"
+                    android:layout_height ="wrap_content" >
+                </Spinner >
+            </LinearLayout>
+            <com.example.chileme.ListViewForScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/listView"
+                android:orientation="horizontal">
+            </com.example.chileme.ListViewForScrollView>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</ScrollView>
 </FrameLayout>
