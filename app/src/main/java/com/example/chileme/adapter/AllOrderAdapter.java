@@ -1,8 +1,9 @@
 package com.example.chileme.adapter;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.chileme.MainFragment;
-import com.example.chileme.OrderFragment;
 import com.example.chileme.R;
 import com.example.chileme.vo.AllOrder;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Wang Xu on 2017/8/9.
@@ -28,8 +37,13 @@ import okhttp3.Request;
 public class AllOrderAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<AllOrder> list;
-
+    private ImageView img;
+    private Context mContext;
+    private ViewHolder holder;
+    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
+    private OkHttpClient okHttpClient = new OkHttpClient();
     public AllOrderAdapter(Context context, List<AllOrder> data) {
+        mContext = context;
         inflater = LayoutInflater.from(context);
         this.list = data;
     }
@@ -51,30 +65,43 @@ public class AllOrderAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
-        ViewHolder holder;
 
         if (v == null) {
             v = inflater.inflate(R.layout.list_item1, parent, false);
             holder = new ViewHolder(v);
             v.setTag(holder);
+            holder.button = (Button) v.findViewById(R.id.text15);
             holder.button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Request request = new Request.Builder()
                             .url("http://192.168.137.1:8080/practice2/order_enterOrder")
                             .get()
                             .build();
-                    Fragment contentFragment = new OrderFragment();
-                    FragmentTransaction transaction= MainFragment.fragmentManager.beginTransaction();
-                    transaction.replace(R.id.fragmentPager, contentFragment);
-                    Log.i("66666666666","3333333");
+                    okHttpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            //失败
+                            Log.i("异常：","--->"+e);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            //成功
+                            Log.i("成功：","--->");
+                            Intent intent =new Intent(mContext,MainFragment.class);
+                            intent.putExtra("flag",3);
+
+                            mContext.startActivity(intent);
+                        }
+                    });
                 }
             });
         } else {
             holder = (ViewHolder) v.getTag();
         }
 
-        holder.img.setImageResource(R.drawable.wechat);
         holder.storename.setText(list.get(position).getStore_name()+" >");
         holder.foodname.setText(list.get(position).getFood_name()+" 等"+list.get(position).getTotalCount()+"件商品");
         holder.totalprice.setText("￥"+list.get(position).getTotalPrice());
@@ -87,10 +114,26 @@ public class AllOrderAdapter extends BaseAdapter {
             holder.orderstate.setText("商家配送中");
             holder.button.setText("确认送达");
             holder.button.setClickable(true);
-            Log.i("----->","----->");
         }
-
-        return v;
+        final String url=url0+list.get(position).getPhoto_source();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap bitmap=getPicture(url);
+                holder.img.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.img.setImageBitmap(bitmap);
+                    }
+                });
+            }
+        }).start();
+//        if (list.get(position)!= Model.NONE) {
+//        } else {
+//            holder.radioGroup.clearCheck();
+//
+//        }
+         return v;
     }
     private class ViewHolder {
         ImageView img=null;
@@ -109,6 +152,21 @@ public class AllOrderAdapter extends BaseAdapter {
             button=(Button)v.findViewById(R.id.text15);
         }
 
+    }
+    public Bitmap getPicture(String path){
+        Bitmap bm=null;
+        try{
+            URL url=new URL(path);
+            URLConnection connection=url.openConnection();
+            connection.connect();
+            InputStream inputStream=connection.getInputStream();
+            bm= BitmapFactory.decodeStream(inputStream);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  bm;
     }
 
 }
