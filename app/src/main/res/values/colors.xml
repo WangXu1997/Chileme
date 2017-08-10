@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="backColor">#2000</color>
+    <color name="main_tab_item_text_select">#00ceaa</color>
+    <color name="main_tab_item_text_normal">#808288</color>
+
 </resources>
