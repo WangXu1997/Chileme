@@ -44,7 +44,7 @@ public class AllOrderAdapter extends BaseAdapter {
     List<Drawable> drawables=new ArrayList<>();
     Drawable drawable;
     private AsyncImageLoader asyncImageLoader=new AsyncImageLoader();
-    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
+    private String url0 ="http://192.168.56.1:8080/practice2/upload/";
 
     private OkHttpClient okHttpClient = new OkHttpClient();
     public AllOrderAdapter(Context context, List<AllOrder> data) {
@@ -136,7 +136,7 @@ public class AllOrderAdapter extends BaseAdapter {
                 }
             }).start();
         try {
-            Thread.sleep(50);
+            Thread.sleep(500);
 
             holder.img.setImageDrawable(drawable);
         } catch (InterruptedException e) {

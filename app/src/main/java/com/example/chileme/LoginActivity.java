@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         String pwd0=input_password0.getText().toString();
         //  http://192.168.40.22:8080/practice2/login?username=范卫松&pwd=fanweisong
         Request request = new Request.Builder()
-                .url("http://192.168.137.1:8080/practice2/login?username="+username0+"&pwd="+pwd0)
+                .url("http://192.168.56.1:8080/practice2/login?username="+username0+"&pwd="+pwd0)
                 .get()
                 .build();
         exec(request);

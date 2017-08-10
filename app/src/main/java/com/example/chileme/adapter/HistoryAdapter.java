@@ -29,7 +29,7 @@ public class HistoryAdapter extends BaseAdapter {
     private Context mContext;
     private ViewHolder holder;
     Drawable drawable;
-    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
+    private String url0 ="http://192.168.56.1:8080/practice2/upload/";
     private OkHttpClient okHttpClient = new OkHttpClient();
     public HistoryAdapter(Context context, List<HistoryOrder> data) {
         mContext = context;
@@ -81,7 +81,7 @@ public class HistoryAdapter extends BaseAdapter {
             }
         }).start();
         try {
-            Thread.sleep(50);
+            Thread.sleep(500);
 
             holder.img.setImageDrawable(drawable);
         } catch (InterruptedException e) {

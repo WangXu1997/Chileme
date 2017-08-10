@@ -146,21 +146,21 @@ public class OrderFragment extends Fragment {
 
     private void doEvent(){
         Request request = new Request.Builder()
-                .url("http://192.168.137.1:8080/practice2/order_findAllOrder")
+                .url("http://192.168.56.1:8080/practice2/order_findAllOrder")
                 .get()
                 .build();
         exec(request,1);
     }
     private void doEvent2(){
         Request request = new Request.Builder()
-                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder1")
+                .url("http://192.168.56.1:8080/practice2/order_findHistoryOrder1")
                 .get()
                 .build();
         exec(request,2);
     }
     private void doEvent3(){
         Request request = new Request.Builder()
-                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder2")
+                .url("http://192.168.56.1:8080/practice2/order_findHistoryOrder2")
                 .get()
                 .build();
         exec(request,3);
@@ -187,7 +187,7 @@ public class OrderFragment extends Fragment {
     }
 public void enterOrder(View view){
     Request request = new Request.Builder()
-            .url("http://192.168.137.1:8080/practice2/order_enterOrder")
+            .url("http://192.168.56.1:8080/practice2/order_enterOrder")
             .get()
             .build();
     Intent intent =new Intent(this.getActivity(),MainFragment.class);
