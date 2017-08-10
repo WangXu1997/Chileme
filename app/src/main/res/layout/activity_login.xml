@@ -82,11 +82,30 @@ android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="忘记密码？"
+        android:text="点此注册"
         android:textSize="20sp"
         android:textColor="@color/background_material_dark"
-        android:layout_marginLeft="200dp"/>
+        android:layout_marginLeft="200dp"
+        android:onClick="regist_user"/>
 
 </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="——  QQ登录  ——"
+        android:layout_marginTop="180dp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_qq"
+        android:layout_marginTop="20dp"
+        android:onClick="login_QQ"/>
+
+
 
 </LinearLayout>
