@@ -2,8 +2,6 @@ package com.example.chileme.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
@@ -21,10 +19,8 @@ import com.example.chileme.R;
 import com.example.chileme.vo.AllOrder;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -45,6 +41,8 @@ public class AllOrderAdapter extends BaseAdapter {
     private ViewHolder holder;
     Handler handler;
     int count = 0;
+    List<Drawable> drawables=new ArrayList<>();
+    Drawable drawable;
     private AsyncImageLoader asyncImageLoader=new AsyncImageLoader();
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
 
@@ -113,34 +111,9 @@ public class AllOrderAdapter extends BaseAdapter {
         holder.foodname.setText(list.get(position).getFood_name()+" 等"+list.get(position).getTotalCount()+"件商品");
         holder.totalprice.setText("￥"+list.get(position).getTotalPrice());
         if(list.get(position).isState()==true){
-            holder.orderstate.setText("订单");
+            holder.orderstate.setText("订单已完成");
             holder.button.setText("再来一单");
             holder.button.setClickable(false);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-//                    holder.img.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            count++;
-//                            Log.i("cccc","count=."+count+"position="+position);
-//
-//                            Message msg=handler.obtainMessage();//子线程中的handle用来给主线程传递消息,虽然本例中的msg没有使用,
-//                           // 但是主线程中的handle也要等待该Message,否则不会继续,然后更新UI
-//                            msg.what=1;
-//                            msg.obj = bitmap;
-//                                                   handler.sendMessage(msg);
-//
-//                        }
-//                    });
-                }
-            }).start();
 
         }
         else{
@@ -149,27 +122,32 @@ public class AllOrderAdapter extends BaseAdapter {
             holder.button.setClickable(true);
         }
 
-//        if (list.get(position)!= Model.NONE) {
-//        } else {
-//            holder.radioGroup.clearCheck();
-//
-//        }
         final String url=url0+list.get(position).getPhoto_source();
-        //final Bitmap bitmap=getPicture(url);
-        asyncImageLoader.loadDrawable(position, url, new AsyncImageLoader.ImageCallback() {
-            @Override
-            public void onImageLoad(Integer t, Drawable drawable) {
-                holder.img.setImageDrawable(drawable);
-            }
+            new Thread(new Runnable(){
 
-            @Override
-            public void onError(Integer t) {
-                Log.i("---","加载失败");
-            }
-        });
+                @Override
+                public void run() {
+                    try {
+                       drawable= Drawable.createFromStream(new URL(url).openStream(),"1.jpg" );
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        try {
+            Thread.sleep(50);
+
+            holder.img.setImageDrawable(drawable);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
 
          return v;
-    }
+}
 
     private class ViewHolder {
         ImageView img=null;
@@ -188,21 +166,6 @@ public class AllOrderAdapter extends BaseAdapter {
             button=(Button)v.findViewById(R.id.text15);
         }
 
-    }
-    public Bitmap getPicture(String path){
-        Bitmap bm=null;
-        try{
-            URL url=new URL(path);
-            URLConnection connection=url.openConnection();
-            connection.connect();
-            InputStream inputStream=connection.getInputStream();
-            bm= BitmapFactory.decodeStream(inputStream);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  bm;
     }
 
 }

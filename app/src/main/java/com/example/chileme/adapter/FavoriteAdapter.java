@@ -1,8 +1,7 @@
 package com.example.chileme.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,7 @@ import com.example.chileme.R;
 import com.example.chileme.vo.FavoriteStore;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -32,6 +28,7 @@ public class FavoriteAdapter extends BaseAdapter {
     private ImageView img;
     private Context mContext;
     private ViewHolder holder;
+    Drawable drawable;
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
     private OkHttpClient okHttpClient = new OkHttpClient();
     public FavoriteAdapter(Context context, List<FavoriteStore> data) {
@@ -71,23 +68,25 @@ public class FavoriteAdapter extends BaseAdapter {
         holder.storeintroduction.setText(list.get(position).getStoreIntroduction());
         holder.totalcount.setText("");
         final String url=url0+list.get(position).getStorePhotoSource();
-        new Thread(new Runnable() {
+        new Thread(new Runnable(){
+
             @Override
             public void run() {
-                final Bitmap bitmap=getPicture(url);
-                holder.img.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.img.setImageBitmap(bitmap);
-                    }
-                });
+                try {
+                    drawable= Drawable.createFromStream(new URL(url).openStream(),"1.jpg" );
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
-//        if (list.get(position)!= Model.NONE) {
-//        } else {
-//            holder.radioGroup.clearCheck();
-//
-//        }
+        try {
+            Thread.sleep(50);
+
+            holder.img.setImageDrawable(drawable);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return v;
     }
     private class ViewHolder {
@@ -103,20 +102,5 @@ public class FavoriteAdapter extends BaseAdapter {
             totalcount=(TextView)v.findViewById(R.id.text23);
         }
 
-    }
-    public Bitmap getPicture(String path){
-        Bitmap bm=null;
-        try{
-            URL url=new URL(path);
-            URLConnection connection=url.openConnection();
-            connection.connect();
-            InputStream inputStream=connection.getInputStream();
-            bm= BitmapFactory.decodeStream(inputStream);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  bm;
     }
 }
