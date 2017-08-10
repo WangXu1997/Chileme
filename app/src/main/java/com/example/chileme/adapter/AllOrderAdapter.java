@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.chileme.AsyncImageLoader;
 import com.example.chileme.MainFragment;
 import com.example.chileme.R;
 import com.example.chileme.vo.AllOrder;
@@ -40,7 +43,11 @@ public class AllOrderAdapter extends BaseAdapter {
     private ImageView img;
     private Context mContext;
     private ViewHolder holder;
+    Handler handler;
+    int count = 0;
+    private AsyncImageLoader asyncImageLoader=new AsyncImageLoader();
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
+
     private OkHttpClient okHttpClient = new OkHttpClient();
     public AllOrderAdapter(Context context, List<AllOrder> data) {
         mContext = context;
@@ -63,7 +70,7 @@ public class AllOrderAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
 
         if (v == null) {
@@ -106,35 +113,64 @@ public class AllOrderAdapter extends BaseAdapter {
         holder.foodname.setText(list.get(position).getFood_name()+" 等"+list.get(position).getTotalCount()+"件商品");
         holder.totalprice.setText("￥"+list.get(position).getTotalPrice());
         if(list.get(position).isState()==true){
-            holder.orderstate.setText("订单已完成");
+            holder.orderstate.setText("订单");
             holder.button.setText("再来一单");
             holder.button.setClickable(false);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+//                    holder.img.post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            count++;
+//                            Log.i("cccc","count=."+count+"position="+position);
+//
+//                            Message msg=handler.obtainMessage();//子线程中的handle用来给主线程传递消息,虽然本例中的msg没有使用,
+//                           // 但是主线程中的handle也要等待该Message,否则不会继续,然后更新UI
+//                            msg.what=1;
+//                            msg.obj = bitmap;
+//                                                   handler.sendMessage(msg);
+//
+//                        }
+//                    });
+                }
+            }).start();
+
         }
         else{
             holder.orderstate.setText("商家配送中");
             holder.button.setText("确认送达");
             holder.button.setClickable(true);
         }
-        final String url=url0+list.get(position).getPhoto_source();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Bitmap bitmap=getPicture(url);
-                holder.img.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        holder.img.setImageBitmap(bitmap);
-                    }
-                });
-            }
-        }).start();
+
 //        if (list.get(position)!= Model.NONE) {
 //        } else {
 //            holder.radioGroup.clearCheck();
 //
 //        }
+        final String url=url0+list.get(position).getPhoto_source();
+        //final Bitmap bitmap=getPicture(url);
+        asyncImageLoader.loadDrawable(position, url, new AsyncImageLoader.ImageCallback() {
+            @Override
+            public void onImageLoad(Integer t, Drawable drawable) {
+                holder.img.setImageDrawable(drawable);
+            }
+
+            @Override
+            public void onError(Integer t) {
+                Log.i("---","加载失败");
+            }
+        });
+
          return v;
     }
+
     private class ViewHolder {
         ImageView img=null;
         TextView storename = null;

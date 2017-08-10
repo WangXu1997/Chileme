@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -42,6 +43,8 @@ public class OrderFragment extends Fragment {
 
     private ListViewForScrollView listView;
     private ListViewForScrollView listView2;
+//    private TextView textView1;
+//    private TextView textView2;
     private List<Map<String,Object>> lists=new ArrayList<>();
     private List<Map<String,Object>> lists2=new ArrayList<>();
     private List<Map<String,Object>> lists3=new ArrayList<>();
@@ -79,6 +82,7 @@ public class OrderFragment extends Fragment {
                 }
                 AllOrderAdapter allOrderAdapter=new AllOrderAdapter(getActivity(),list);
                 listView.setAdapter(allOrderAdapter);
+                doEvent2();
             }
             if(msg.what == 2){
                 String result = (String) msg.obj;
@@ -129,7 +133,13 @@ public class OrderFragment extends Fragment {
 
 
         doEvent();
-        //doEvent2();
+        TextView his = (TextView) view.findViewById(R.id.history);
+        his.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+        doEvent2();
+            }
+        });
         //doEvent3();
         return view;
     }
