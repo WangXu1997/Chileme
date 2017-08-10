@@ -19,6 +19,7 @@
         android:background="@drawable/back">
 
 
+
         <ImageView
             android:id="@+id/firstpage_frag"
             android:layout_width="0dp"
