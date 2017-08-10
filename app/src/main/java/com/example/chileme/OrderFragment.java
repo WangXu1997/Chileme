@@ -12,17 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.chileme.adapter.AllOrderAdapter;
+import com.example.chileme.adapter.FavoriteAdapter;
+import com.example.chileme.adapter.HistoryAdapter;
 import com.example.chileme.vo.AllOrder;
+import com.example.chileme.vo.FavoriteStore;
+import com.example.chileme.vo.HistoryOrder;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +49,8 @@ public class OrderFragment extends Fragment {
     private ScrollView sv;
     private JSONObject object;
     private List<AllOrder> list =new ArrayList<>();
+    private List<HistoryOrder> list2=new ArrayList<>();
+    private List<FavoriteStore> list3=new ArrayList<>();
     private JSONArray jsonArray;
    // private Button button;
     //private TextView textView;
@@ -58,6 +62,7 @@ public class OrderFragment extends Fragment {
             super.handleMessage(msg);
             if(msg.what == 1){
                 String result = (String) msg.obj;
+                Log.i("---",result);
                 jsonArray= JSON.parseArray(result);
                 Log.i("",""+jsonArray.size());
                 for(int i=0;i<jsonArray.size();i++){
@@ -75,6 +80,40 @@ public class OrderFragment extends Fragment {
                 AllOrderAdapter allOrderAdapter=new AllOrderAdapter(getActivity(),list);
                 listView.setAdapter(allOrderAdapter);
             }
+            if(msg.what == 2){
+                String result = (String) msg.obj;
+                Log.i("---",result);
+                jsonArray= JSON.parseArray(result);
+                Log.i("",""+jsonArray.size());
+                for(int i=0;i<jsonArray.size();i++){
+                    HistoryOrder historyOrder=new HistoryOrder();
+                    Log.i("",""+jsonArray.size());
+                    object=jsonArray.getJSONObject(i);
+                    historyOrder.setStorePhotoSource((String)object.get("storePhotoSource"));
+                    historyOrder.setStoreUsername((String)object.get("storeUsername"));
+                    historyOrder.setStoreIntroduction((String)object.get("storeIntroduction"));
+                    historyOrder.setHistoryCount((int)object.get("historyCount"));
+                    list2.add(historyOrder);
+                }
+                HistoryAdapter historyAdapter=new HistoryAdapter(getActivity(),list2);
+                listView2.setAdapter(historyAdapter);
+            }if(msg.what == 3){
+                String result = (String) msg.obj;
+                Log.i("---",result);
+                jsonArray= JSON.parseArray(result);
+                Log.i("",""+jsonArray.size());
+                for(int i=0;i<jsonArray.size();i++){
+                    FavoriteStore favoriteStore=new FavoriteStore();
+                    Log.i("",""+jsonArray.size());
+                    object=jsonArray.getJSONObject(i);
+                    favoriteStore.setStoreIntroduction((String)object.get("storeIntroduction"));
+                    favoriteStore.setStoreUsername((String)object.get("storeUsername"));
+                    favoriteStore.setStorePhotoSource((String)object.get("storePhotoSource"));
+                    list3.add(favoriteStore);
+                }
+                FavoriteAdapter favoriteAdapter=new FavoriteAdapter(getActivity(),list3);
+                listView2.setAdapter(favoriteAdapter);
+            }
         }
     };
     OkHttpClient okHttpClient = new OkHttpClient();
@@ -87,21 +126,11 @@ public class OrderFragment extends Fragment {
         sv.smoothScrollTo(0, 0);
         listView=(ListViewForScrollView)view.findViewById(R.id.listview);
         listView2=(ListViewForScrollView)view.findViewById(R.id.listview2);
-       // button=(Button) view.findViewById(R.id.text15);
-       // textView=(TextView) view.findViewById(R.id.text14);
-        String[] keys={"img"};
 
-        int[] ids2={R.id.item_img2};
 
         doEvent();
-
-        SimpleAdapter simpleAdapter2=new SimpleAdapter(this.getActivity(),lists2,R.layout.list_item2,keys,ids2);
-        listView2.setAdapter(simpleAdapter2);
-        for(int i=0;i<2;i++){
-            Map<String,Object> map0=new HashMap<>();
-            map0.put("img",imgIds[0]);
-            lists2.add(map0);
-        }
+        //doEvent2();
+        //doEvent3();
         return view;
     }
 
@@ -111,6 +140,20 @@ public class OrderFragment extends Fragment {
                 .get()
                 .build();
         exec(request,1);
+    }
+    private void doEvent2(){
+        Request request = new Request.Builder()
+                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder1")
+                .get()
+                .build();
+        exec(request,2);
+    }
+    private void doEvent3(){
+        Request request = new Request.Builder()
+                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder2")
+                .get()
+                .build();
+        exec(request,3);
     }
     private void exec(Request request, final int flag) {
         okHttpClient.newCall(request).enqueue(new Callback() {
