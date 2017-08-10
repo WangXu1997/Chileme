@@ -41,11 +41,7 @@
         <activity android:name=".ChangeInformation" />
         <activity android:name=".UserInformation" />
         <activity android:name=".MainFragment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".MainSpinnerActivity" />
         <activity android:name=".MainTopActivity" />
@@ -53,6 +49,14 @@
         <activity android:name=".ShopFoodActivity"></activity>
         <activity android:name=".ShopFoodSpinnerActivity" />
         <activity android:name=".RegistActivity"></activity>
+        <activity android:name=".WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
