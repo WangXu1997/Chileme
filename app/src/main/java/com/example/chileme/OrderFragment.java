@@ -2,7 +2,7 @@ package com.example.chileme;
 
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -31,8 +31,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.example.chileme.MainFragment.fragmentManager;
 
 
 /**
@@ -72,21 +70,10 @@ public class OrderFragment extends Fragment {
                     allOrder.setStore_name((String) object.get("store_name"));
                     allOrder.setTotalCount((int)object.get("totalCount"));
                     allOrder.setTotalPrice((String) object.get("totalPrice"));
-
                     list.add(allOrder);
                 }
-              //  setListView(list);
-               // SimpleAdapter simpleAdapter=new SimpleAdapter(getActivity(),lists,R.layout.list_item1,keys2,ids);
-               // listView.setAdapter(simpleAdapter);
                 AllOrderAdapter allOrderAdapter=new AllOrderAdapter(getActivity(),list);
                 listView.setAdapter(allOrderAdapter);
-
-//                button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        enter(v);
-//                    }
-//                });
             }
         }
     };
@@ -145,37 +132,13 @@ public class OrderFragment extends Fragment {
             }
         });
     }
-//    private List<Map<String,Object>> setListView(List<AllOrder> list){
-//        for(int i=0;i<list.size();i++){
-//            Map<String,Object> map=new HashMap<>();
-//            int judge;
-//            map.put("img",imgIds[0]);
-//            map.put("text11",list.get(i).getStore_name()+" >");
-//            map.put("text12",list.get(i).getFood_name()+" 等"+list.get(i).getTotalCount()+"件商品");
-//            map.put("text13","￥"+list.get(i).getTotalPrice());
-//            if(list.get(i).isState()==true){
-//                map.put("text14","订单已完成");
-//                map.put("text15","再来一单");
-//                judge=0;
-//            }
-//            else{
-//                map.put("text14","商家配送中");
-//                map.put("text15","确认送达");
-//                judge=1;
-//            }
-//            if(judge==0)
-//                button.setClickable(false);
-//            lists.add(map);
-//        }
-//        return lists;
-//    }
 public void enterOrder(View view){
     Request request = new Request.Builder()
             .url("http://192.168.137.1:8080/practice2/order_enterOrder")
             .get()
             .build();
-    Fragment contentFragment = new OrderFragment();
-    FragmentTransaction transaction=fragmentManager.beginTransaction();
-    transaction.replace(R.id.fragmentPager, contentFragment);
+    Intent intent =new Intent(this.getActivity(),MainFragment.class);
+    intent.putExtra("flag",3);
+    startActivity(intent);
 }
 }
