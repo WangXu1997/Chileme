@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                 .add("pwd", pwd0).build();
 
         Request.Builder builder = new Request.Builder();
-        Request request1 = builder.url("http://192.168.137.1:8080/practice2/login")
+        Request request1 = builder.url("http://192.168.56.1:8080/practice2/login")
                 .post(formBody)
                 .build();
         exec(request1);

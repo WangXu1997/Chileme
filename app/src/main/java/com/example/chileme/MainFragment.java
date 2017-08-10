@@ -13,8 +13,6 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import okhttp3.Request;
-
 @ContentView(R.layout.main_fragment)
 public class MainFragment extends FragmentActivity {
 
@@ -111,27 +109,10 @@ public class MainFragment extends FragmentActivity {
                     contentFragment = new PersonalFragment();
                     transaction.replace(R.id.fragmentPager, contentFragment);
                     break;
-                case R.id.text15:
-                    Request request = new Request.Builder()
-                            .url("http://192.168.40.23:8080/practice2/order_enterOrder")
-                            .get()
-                            .build();
-                    Intent intent=new Intent(MainFragment.this,OrderFragment.class);
-                    startActivity(intent);
-                    break;
                 default:
                     break;
             }
             transaction.commit();
         }
     };
-    public static  void enterOrder(View view){
-        Request request = new Request.Builder()
-                .url("http://192.168.137.1:8080/practice2/order_enterOrder")
-                .get()
-                .build();
-        Fragment contentFragment = new OrderFragment();
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-        transaction.replace(R.id.fragmentPager, contentFragment);
-    }
 }
