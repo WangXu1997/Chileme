@@ -1,12 +1,14 @@
 package com.example.chileme;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,7 +20,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.chileme.adapter.FoodAdapter;
 import com.example.chileme.adapter.onCountChangeListen;
+import com.example.chileme.vo.Food;
 import com.example.chileme.vo.StoreFood;
+import com.example.chileme.vo.buy_store;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +35,8 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import static org.litepal.tablemanager.Connector.getWritableDatabase;
 
 public class ShopFoodActivity extends AppCompatActivity {
     private Spinner mySpinner;
@@ -55,6 +61,9 @@ public class ShopFoodActivity extends AppCompatActivity {
     private List<StoreFood> list2=new ArrayList<>();
     Drawable drawable;
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
+    private String storeName;
+    public static  int length;
+    private int storeId;
     FoodAdapter foodAdapter;
     OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -148,11 +157,9 @@ public class ShopFoodActivity extends AppCompatActivity {
         shopSaleCount=(TextView)findViewById(R.id.tv_shop_send) ;
 
         Intent intent=getIntent();
-        String storeIdCurrent=intent.getStringExtra("storeNameCurrent");
-        int storeId=intent.getIntExtra("storeidCurrent",1);
-        Log.i("---------",storeIdCurrent);
-        Log.i("---------",storeId+"");
-        shopName.setText(storeIdCurrent);
+        storeName=intent.getStringExtra("storeNameCurrent");
+        storeId=intent.getIntExtra("storeidCurrent",1);
+        shopName.setText(storeName);
 
         currentId=storeId;
         doEvent();
@@ -193,5 +200,38 @@ public class ShopFoodActivity extends AppCompatActivity {
                 handler.sendMessage(message);
             }
         });
+    }
+    public void goAccount(View view)
+    {
+
+        SQLiteDatabase db= getWritableDatabase();
+        buy_store store0=new buy_store();
+        store0.setStore_id(storeId);
+        store0.setStore_name(storeName);
+        int tolprice=0;
+        for (int i=0;i<list2.size();i++)
+        {
+            Food food=new Food();
+            food.setFood_id(list2.get(i).getFoodId());
+            food.setFood_name(list2.get(i).getFoodName());
+            food.setPrice(list2.get(i).getPrice());
+            food.setNumber(list2.get(i).getNum());
+            food.setXiaoji(list2.get(i).getNum()*list2.get(i).getPrice());
+            tolprice+=list2.get(i).getNum()*list2.get(i).getPrice();
+            food.save();
+        }
+
+        length=list2.size();
+        store0.setTotalprice(tolprice);
+        store0.save();
+//        for (int j=16;j<19;j++)
+//        {
+//            Food food= DataSupport.find(Food.class,j);
+//            String name=food.getFood_name();
+//            System.out.println(name+"---------------->");
+//        }
+        Intent intent=new Intent(ShopFoodActivity.this,ShopCarActivity.class);
+        startActivity(intent);
+
     }
 }
