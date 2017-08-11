@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.chileme.adapter.FoodAdapter;
+import com.example.chileme.adapter.onCountChangeListen;
 import com.example.chileme.vo.StoreFood;
 
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class ShopFoodActivity extends AppCompatActivity {
     private List<StoreFood> list2=new ArrayList<>();
     Drawable drawable;
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
-
+    FoodAdapter foodAdapter;
     OkHttpClient okHttpClient = new OkHttpClient();
 
     Handler handler = new Handler(){
@@ -92,7 +93,7 @@ public class ShopFoodActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                doEvent2();
+               doEvent2();
             }
             if(msg.what == 2){
                 String result = (String) msg.obj;
@@ -107,18 +108,38 @@ public class ShopFoodActivity extends AppCompatActivity {
                     storeFood.setFoodName((String)object.get("foodName"));
                     storeFood.setPeopleBuy((int)object.get("peopleBuy"));
                     storeFood.setPhotoSource((String)object.get("photoSource"));
-                    storeFood.setPrice(Float.parseFloat((String)object.get("price")));
+                    storeFood.setPrice(Float.parseFloat(object.get("price").toString()));
+                    storeFood.setNum(0);
                     list2.add(storeFood);
                 }
-                FoodAdapter foodAdapter=new FoodAdapter(ShopFoodActivity.this,list2);
+                final FoodAdapter foodAdapter=new FoodAdapter(ShopFoodActivity.this,list2);
+                listener=new onCountChangeListen() {
+                    @Override
+                    public void onIncrease(int count,int position) {
+                        foodAdapter.addCount(position);
+                        foodAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onDecrease(int count,int position) {
+                        foodAdapter.subCount(position);
+                        foodAdapter.notifyDataSetChanged();
+                    }
+                };
+                foodAdapter.setListener(listener);
                 listView.setAdapter(foodAdapter);
+
+
             }
         }
     };
+    private onCountChangeListen listener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_food);
+
 
         shopName=(TextView)findViewById(R.id.tv_shop_name) ;
         shopPhoto=(ImageView)findViewById(R.id.iv_shop) ;
@@ -133,7 +154,7 @@ public class ShopFoodActivity extends AppCompatActivity {
         Log.i("---------",storeId+"");
         shopName.setText(storeIdCurrent);
 
-        currentId=2;
+        currentId=storeId;
         doEvent();
 
         listView=(ListView) findViewById(R.id.listViewfood2);

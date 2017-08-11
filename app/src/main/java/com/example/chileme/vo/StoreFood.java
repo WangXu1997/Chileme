@@ -8,6 +8,13 @@ public class StoreFood {
 	private String photoSource;
 	private float grade;
 	private int peopleBuy;
+	private Integer num;
+	public Integer getNum() {
+		return num;
+	}
+	public void setNum(Integer num) {
+		this.num = num;
+	}
 	public Integer getFoodId() {
 		return foodId;
 	}

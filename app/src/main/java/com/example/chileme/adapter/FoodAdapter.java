@@ -28,6 +28,8 @@ public class FoodAdapter extends BaseAdapter {
     private List<StoreFood> list;
     private ImageView img;
     private ViewHolder holder;
+    int num=0;
+    onCountChangeListen listen;
     Handler handler;
     Drawable drawable;
     private String url0 ="http://192.168.137.1:8080/practice2/upload/";
@@ -71,8 +73,20 @@ public class FoodAdapter extends BaseAdapter {
         holder.foodname.setText(list.get(position).getFoodName());
         holder.foodIntroduction.setText("共售"+list.get(position).getPeopleBuy()+"单       "+list.get(position).getGrade()+"%");
         holder.price.setText("￥"+list.get(position).getPrice());
-        holder.count.setText(0);
-
+        holder.count.setText(list.get(position).getNum()+"");
+        holder.img_increase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listen.onIncrease(list.get(position).getNum(),position);
+            }
+        });
+        holder.img_decrease.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(list.get(position).getNum()>0)
+                        listen.onDecrease(list.get(position).getNum(),position);
+            }
+        });
         final String url=url0+list.get(position).getPhotoSource();
         new Thread(new Runnable(){
 
@@ -98,6 +112,19 @@ public class FoodAdapter extends BaseAdapter {
 
 
         return v;
+    }
+
+    public void addCount(int position){
+        Integer num = list.get(position).getNum();
+        list.get(position).setNum(num+1);
+    }
+    public void subCount(int position){
+        Integer num = list.get(position).getNum();
+        list.get(position).setNum(num-1);
+    }
+
+    public void setListener(onCountChangeListen listener){
+        this.listen=listener;
     }
 
     private class ViewHolder {

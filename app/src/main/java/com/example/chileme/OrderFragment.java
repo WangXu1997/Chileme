@@ -55,6 +55,8 @@ public class OrderFragment extends Fragment {
     private List<HistoryOrder> list2=new ArrayList<>();
     private List<FavoriteStore> list3=new ArrayList<>();
     private JSONArray jsonArray;
+    private  TextView his;
+    private TextView fav;
    // private Button button;
     //private TextView textView;
    // String[] keys2={"img","text11","text12","text13","text14","text15"};
@@ -82,9 +84,14 @@ public class OrderFragment extends Fragment {
                 }
                 AllOrderAdapter allOrderAdapter=new AllOrderAdapter(getActivity(),list);
                 listView.setAdapter(allOrderAdapter);
-                doEvent3();
+                his.setClickable(false);
+                fav.setClickable(true);
+                fav.setTextColor(0xff000000);
+                his.setTextColor(0Xff4169E1);
+                doEvent2();
             }
             if(msg.what == 2){
+                list2.clear();
                 String result = (String) msg.obj;
                 Log.i("---",result);
                 jsonArray= JSON.parseArray(result);
@@ -105,6 +112,7 @@ public class OrderFragment extends Fragment {
                 HistoryAdapter historyAdapter=new HistoryAdapter(getActivity(),list2);
                 listView2.setAdapter(historyAdapter);
             }if(msg.what == 3){
+                list3.clear();
                 String result = (String) msg.obj;
                 Log.i("---",result);
                 jsonArray= JSON.parseArray(result);
@@ -139,11 +147,26 @@ public class OrderFragment extends Fragment {
 
 
         doEvent();
-        TextView his = (TextView) view.findViewById(R.id.history);
+         his = (TextView) view.findViewById(R.id.history);
+        fav=(TextView) view.findViewById(R.id.favorite);
         his.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        doEvent2();
+                his.setClickable(false);
+                fav.setClickable(true);
+                fav.setTextColor(0xff000000);
+                his.setTextColor(0Xff4169E1);
+                 doEvent2();
+            }
+        });
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fav.setClickable(false);
+                his.setClickable(true);
+                his.setTextColor(0xff000000);
+                fav.setTextColor(0Xff4169E1);
+                doEvent3();
             }
         });
         //doEvent3();
