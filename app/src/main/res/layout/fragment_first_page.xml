@@ -18,7 +18,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/back"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             >
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
             <include
                 android:id="@+id/restaurant_head"
                 layout="@layout/main_top" />

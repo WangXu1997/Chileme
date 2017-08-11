@@ -11,7 +11,7 @@ android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="@drawable/blue_background"
+    android:background="@drawable/backblue"
     android:orientation="horizontal">
 
     <ImageView
@@ -31,16 +31,16 @@ android:orientation="vertical">
         android:layout_marginLeft="20dp"
         android:layout_gravity="center" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="点此修改"
-        android:textSize="20sp"
-        android:textColor="#ffffff"
-        android:clickable="true"
-        android:layout_marginLeft="80dp"
-        android:layout_gravity="center"
-        android:onClick="transform_change_username"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="点此修改"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:clickable="true"-->
+        <!--android:layout_marginLeft="80dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:onClick="transform_change_username"/>-->
 
 </LinearLayout>
 <View
@@ -65,8 +65,7 @@ android:orientation="vertical">
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/girl"
-        app:riv_border_color="#0000ff"
-        app:riv_border_width="2dp"
+
         app:riv_oval="true"
         android:layout_marginLeft="220dp"
         android:layout_gravity="center"
@@ -107,7 +106,7 @@ android:orientation="vertical">
 <View
     android:layout_width="match_parent"
     android:layout_height="5dp"
-    android:background="#cccccc"/>
+    android:background="#EBEBEB"/>
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -229,8 +228,23 @@ android:orientation="vertical">
 </LinearLayout>
 <View
     android:layout_width="match_parent"
-    android:layout_height="5dp"
-    android:background="#cccccc"/>
+    android:layout_height="50dp"
+    android:background="#EBEBEB"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="点此修改"
+        android:textSize="24sp"
+        android:textColor="#ffffff"
+        android:background="@drawable/backblue"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:onClick="transform_change_username"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EBEBEB"/>
 
 
 </LinearLayout>

@@ -10,8 +10,8 @@ android:orientation="vertical">
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="40dp"
-    android:background="@drawable/blue_background"
+    android:layout_height="50dp"
+    android:background="@drawable/backblue"
     android:orientation="horizontal">
 
     <ImageView
@@ -38,32 +38,57 @@ android:orientation="vertical">
     android:background="#cccccc"/>
 
 <EditText
-    android:layout_width="match_parent"
+
+    android:layout_width="fill_parent"
     android:layout_height="50dp"
     android:hint="用户名"
     android:textCursorDrawable="@drawable/color_cursor"
-    android:id="@+id/change_username_new"/>
+    android:id="@+id/change_username_new"
+    android:background="@drawable/bg_edittext"
+    android:padding="5dip"
+    android:layout_margin="16dip"/>
+    <!--<EditText-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="36dip"-->
+        <!--android:background="@drawable/bg_edittext"-->
+        <!--android:padding="5dip"-->
+        <!--android:layout_margin="36dip"-->
+        <!--android:textColorHint="#AAAAAA"-->
+        <!--android:textSize="15dip"-->
+        <!--android:singleLine="true"-->
+        <!--android:hint="请输入..."-->
+        <!--/>-->
 
-<EditText
+
+    <EditText
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:hint="密码"
     android:textCursorDrawable="@drawable/color_cursor"
-    android:id="@+id/change_password_new"/>
+    android:id="@+id/change_password_new"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
 <EditText
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:hint="手机"
     android:textCursorDrawable="@drawable/color_cursor"
-    android:id="@+id/change_phonenumber_new"/>
+    android:id="@+id/change_phonenumber_new"
+    android:background="@drawable/bg_edittext"
+    android:padding="5dip"
+    android:layout_margin="16dip"/>
 
 <EditText
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:hint="地址"
     android:textCursorDrawable="@drawable/color_cursor"
-    android:id="@+id/change_address_new"/>
+    android:id="@+id/change_address_new"
+    android:background="@drawable/bg_edittext"
+    android:padding="5dip"
+    android:layout_margin="16dip"/>
 
 
 
@@ -75,8 +100,9 @@ android:orientation="vertical">
     android:layout_marginRight="20dp"
     android:textColor="#ffffff"
     android:textSize="26sp"
-    android:background="#50ee50"
+    android:background="#32CD32"
     android:layout_marginTop="30dp"
     android:text="确认修改"
-    android:onClick="ensure_change_user"/>
+    android:onClick="ensure_change_user"
+    />
 </LinearLayout>

@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/blue_background"
+        android:background="@drawable/backblue"
         android:orientation="horizontal">
 
         <ImageView
@@ -32,38 +32,47 @@
             android:layout_gravity="center"/>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#cccccc"/>
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="用户名"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:id="@+id/regist_username"/>
+        android:id="@+id/regist_username"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="密码"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:id="@+id/regist_password"/>
+        android:id="@+id/regist_password"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="手机"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:id="@+id/regist_phonenumber"/>
+        android:id="@+id/regist_phonenumber"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="地址"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:id="@+id/regist_address"/>
+        android:id="@+id/regist_address"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
 
     <EditText
@@ -71,7 +80,10 @@
         android:layout_height="50dp"
         android:hint="金额"
         android:textCursorDrawable="@drawable/color_cursor"
-        android:id="@+id/regist_money"/>
+        android:id="@+id/regist_money"
+        android:background="@drawable/bg_edittext"
+        android:padding="5dip"
+        android:layout_margin="16dip"/>
 
 
 
@@ -82,7 +94,7 @@
         android:layout_marginRight="20dp"
         android:textColor="#ffffff"
         android:textSize="26sp"
-        android:background="#50ee50"
+        android:background="#32CD32"
         android:layout_marginTop="30dp"
         android:text="注册"
         android:onClick="ensure_regist"/>

@@ -12,7 +12,7 @@ android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/blue_background"
+    android:background="@drawable/backblue"
     android:orientation="horizontal">
 
     <ImageView
@@ -33,10 +33,7 @@ android:orientation="vertical">
 
 </LinearLayout>
 
-<View
-    android:layout_width="match_parent"
-    android:layout_height="8dp"
-    android:background="#cccccc"/>
+
 
 
 <EditText
@@ -44,16 +41,22 @@ android:orientation="vertical">
     android:layout_height="50dp"
     android:hint="用户名"
     android:textCursorDrawable="@drawable/color_cursor"
-    android:id="@+id/input_username"/>
+    android:id="@+id/input_username"
+    android:background="@drawable/bg_edittext"
+    android:padding="5dip"
+    android:layout_margin="16dip"/>
 
 
 <EditText
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="50dp"
     android:hint="密码"
     android:textCursorDrawable="@drawable/color_cursor"
     android:inputType="textPassword"
-    android:id="@+id/input_password"/>
+    android:id="@+id/input_password"
+    android:background="@drawable/bg_edittext"
+    android:padding="5dip"
+    android:layout_margin="16dip"/>
 
 <Button
     android:layout_width="match_parent"
@@ -70,14 +73,16 @@ android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="显示密码"
         android:textSize="20sp"
-        android:textColor="@color/background_material_dark"/>
+        android:textColor="@color/background_material_dark"
+        android:paddingLeft="3dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -85,7 +90,7 @@ android:orientation="vertical">
         android:text="点此注册"
         android:textSize="20sp"
         android:textColor="@color/background_material_dark"
-        android:layout_marginLeft="200dp"
+        android:layout_marginLeft="220dp"
         android:onClick="regist_user"/>
 
 </LinearLayout>
@@ -94,7 +99,7 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="——  QQ登录  ——"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="130dp"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:gravity="center"/>
