@@ -82,7 +82,7 @@ public class OrderFragment extends Fragment {
                 }
                 AllOrderAdapter allOrderAdapter=new AllOrderAdapter(getActivity(),list);
                 listView.setAdapter(allOrderAdapter);
-                doEvent2();
+                doEvent3();
             }
             if(msg.what == 2){
                 String result = (String) msg.obj;
@@ -97,6 +97,9 @@ public class OrderFragment extends Fragment {
                     historyOrder.setStoreUsername((String)object.get("storeUsername"));
                     historyOrder.setStoreIntroduction((String)object.get("storeIntroduction"));
                     historyOrder.setHistoryCount((int)object.get("historyCount"));
+                    historyOrder.setHistorySale((int)object.get("historySale"));
+                    historyOrder.setGrade((int)object.get("grade"));
+                    historyOrder.setStoreid((int)object.get("storeid"));
                     list2.add(historyOrder);
                 }
                 HistoryAdapter historyAdapter=new HistoryAdapter(getActivity(),list2);
@@ -113,6 +116,9 @@ public class OrderFragment extends Fragment {
                     favoriteStore.setStoreIntroduction((String)object.get("storeIntroduction"));
                     favoriteStore.setStoreUsername((String)object.get("storeUsername"));
                     favoriteStore.setStorePhotoSource((String)object.get("storePhotoSource"));
+                    favoriteStore.setHistorySale((int)object.get("historySale"));
+                    favoriteStore.setGrade((int)object.get("grade"));
+                    favoriteStore.setStoreid((int)object.get("storeid"));
                     list3.add(favoriteStore);
                 }
                 FavoriteAdapter favoriteAdapter=new FavoriteAdapter(getActivity(),list3);
@@ -146,21 +152,21 @@ public class OrderFragment extends Fragment {
 
     private void doEvent(){
         Request request = new Request.Builder()
-                .url("http://192.168.56.1:8080/practice2/order_findAllOrder")
+                .url("http://192.168.137.1:8080/practice2/order_findAllOrder")
                 .get()
                 .build();
         exec(request,1);
     }
     private void doEvent2(){
         Request request = new Request.Builder()
-                .url("http://192.168.56.1:8080/practice2/order_findHistoryOrder1")
+                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder1")
                 .get()
                 .build();
         exec(request,2);
     }
     private void doEvent3(){
         Request request = new Request.Builder()
-                .url("http://192.168.56.1:8080/practice2/order_findHistoryOrder2")
+                .url("http://192.168.137.1:8080/practice2/order_findHistoryOrder2")
                 .get()
                 .build();
         exec(request,3);

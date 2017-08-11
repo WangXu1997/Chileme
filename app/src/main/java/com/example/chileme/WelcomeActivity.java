@@ -32,19 +32,19 @@ public class WelcomeActivity extends AppCompatActivity {
         pager.setPageTransformer(true,new ZoomOutPageTransformer());
         pager.setAdapter(new PagerAdapter() {
             @Override
-            public Object instantiateItem(ViewGroup container, final int position) {
+            public Object instantiateItem(ViewGroup container, final int position0) {
                 ImageView img = new ImageView(WelcomeActivity.this);
-                img.setImageResource(imgIds[position]);
+                img.setImageResource(imgIds[position0]);
                 img.setScaleType(ImageView.ScaleType.CENTER_CROP);//不变形
 
                 container.addView(img);
                 imageViews.add(img);
 
-                ImageView imageView = imageViews.get(position);
+                ImageView imageView = imageViews.get(position0);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        switch (position){
+                        switch (position0){
                             case 2:
                                 Intent intent = new Intent(WelcomeActivity.this, MainFragment.class);
                                 intent.putExtra("flag",1);

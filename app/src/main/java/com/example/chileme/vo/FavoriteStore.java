@@ -5,9 +5,30 @@ package com.example.chileme.vo;
  */
 
 public class FavoriteStore {
+    private int storeid;
+    public int getStoreid() {
+        return storeid;
+    }
+    public void setStoreid(int storeid) {
+        this.storeid = storeid;
+    }
     private String storeUsername;
     private String storeIntroduction;
     private String storePhotoSource;
+    private int historySale;
+    private int grade;
+    public int getHistorySale() {
+        return historySale;
+    }
+    public void setHistorySale(int historySale) {
+        this.historySale = historySale;
+    }
+    public int getGrade() {
+        return grade;
+    }
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
     public String getStoreUsername() {
         return storeUsername;
     }

@@ -29,7 +29,7 @@ public class FavoriteAdapter extends BaseAdapter {
     private Context mContext;
     private ViewHolder holder;
     Drawable drawable;
-    private String url0 ="http://192.168.56.1:8080/practice2/upload/";
+    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
     private OkHttpClient okHttpClient = new OkHttpClient();
     public FavoriteAdapter(Context context, List<FavoriteStore> data) {
         mContext = context;
@@ -56,7 +56,7 @@ public class FavoriteAdapter extends BaseAdapter {
         View v = convertView;
 
         if (v == null) {
-            v = inflater.inflate(R.layout.list_item2, parent, false);
+            v = inflater.inflate(R.layout.list_item, parent, false);
             holder = new ViewHolder(v);
             v.setTag(holder);
 
@@ -67,6 +67,8 @@ public class FavoriteAdapter extends BaseAdapter {
         holder.storename.setText(list.get(position).getStoreUsername()+" >");
         holder.storeintroduction.setText(list.get(position).getStoreIntroduction());
         holder.totalcount.setText("");
+        holder.history_sale.setText("共售"+list.get(position).getHistorySale()+"单");
+        holder.grade.setText(list.get(position).getGrade()+"%");
         final String url=url0+list.get(position).getStorePhotoSource();
         new Thread(new Runnable(){
 
@@ -81,7 +83,7 @@ public class FavoriteAdapter extends BaseAdapter {
             }
         }).start();
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
 
             holder.img.setImageDrawable(drawable);
         } catch (InterruptedException e) {
@@ -94,12 +96,18 @@ public class FavoriteAdapter extends BaseAdapter {
         TextView storename = null;
         TextView storeintroduction = null;
         TextView totalcount = null;
+        TextView grade=null;
+        TextView history_sale=null;
+        TextView storeid=null;
 
         ViewHolder(View v) {
             img=(ImageView)v.findViewById(R.id.item_img2);
             storename=(TextView)v.findViewById(R.id.text21);
             storeintroduction=(TextView)v.findViewById(R.id.text22);
             totalcount=(TextView)v.findViewById(R.id.text23);
+            history_sale=(TextView)v.findViewById(R.id.text24);
+            grade=(TextView)v.findViewById(R.id.text25);
+            storeid=(TextView)v.findViewById(R.id.text26);
         }
 
     }

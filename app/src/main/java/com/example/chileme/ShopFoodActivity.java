@@ -1,21 +1,35 @@
 package com.example.chileme;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.example.chileme.adapter.FoodAdapter;
+import com.example.chileme.vo.StoreFood;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ShopFoodActivity extends AppCompatActivity {
     private Spinner mySpinner;
@@ -29,53 +43,134 @@ public class ShopFoodActivity extends AppCompatActivity {
     private ImageView add1;
     private ImageView delete1;
     private TextView edit1;
+    private TextView shopName;
+    private ImageView shopPhoto;
+    private TextView shopIntroduction;
+    private TextView shopGrade;
+    private TextView shopSaleCount;
+    private JSONObject object;
+    private JSONArray jsonArray;
+    private int currentId;
+    private List<StoreFood> list2=new ArrayList<>();
+    Drawable drawable;
+    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
 
+    OkHttpClient okHttpClient = new OkHttpClient();
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what == 1){
+                String result = (String) msg.obj;
+                Log.i("------>",result);
+                jsonArray= JSON.parseArray(result);
+                Log.i("",""+jsonArray.size());
+                object=jsonArray.getJSONObject(0);
+                shopName.setText((String)object.get("storeUsername"));
+                shopIntroduction.setText((String)object.get("storeIntroduction"));
+               // shopGrade.setText((String)object.get("grade"));
+                //shopSaleCount.setText((String)object.get("historySale"));
+                final String url=url0+(String)object.get("storePhotoSource");
+                new Thread(new Runnable(){
+
+                    @Override
+                    public void run() {
+                        try {
+                            drawable= Drawable.createFromStream(new URL(url).openStream(),"1.jpg" );
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+                try {
+                    Thread.sleep(500);
+
+                    shopPhoto.setImageDrawable(drawable);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                doEvent2();
+            }
+            if(msg.what == 2){
+                String result = (String) msg.obj;
+                Log.i("------>",result);
+                jsonArray= JSON.parseArray(result);
+                Log.i("",""+jsonArray.size());
+                for(int i=0;i<jsonArray.size();i++){
+                    StoreFood storeFood=new StoreFood();
+                    object=jsonArray.getJSONObject(i);
+                    storeFood.setGrade(Float.parseFloat(object.get("grade").toString()));
+                    storeFood.setFoodId((int)object.get("foodId"));
+                    storeFood.setFoodName((String)object.get("foodName"));
+                    storeFood.setPeopleBuy((int)object.get("peopleBuy"));
+                    storeFood.setPhotoSource((String)object.get("photoSource"));
+                    storeFood.setPrice(Float.parseFloat((String)object.get("price")));
+                    list2.add(storeFood);
+                }
+                FoodAdapter foodAdapter=new FoodAdapter(ShopFoodActivity.this,list2);
+                listView.setAdapter(foodAdapter);
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_food);
 
+        shopName=(TextView)findViewById(R.id.tv_shop_name) ;
+        shopPhoto=(ImageView)findViewById(R.id.iv_shop) ;
+        shopIntroduction=(TextView)findViewById(R.id.tv_shop_summary) ;
+        shopGrade=(TextView)findViewById(R.id.tv_shop_type) ;
+        shopSaleCount=(TextView)findViewById(R.id.tv_shop_send) ;
+
+        Intent intent=getIntent();
+        String storeIdCurrent=intent.getStringExtra("storeNameCurrent");
+        int storeId=intent.getIntExtra("storeidCurrent",1);
+        Log.i("---------",storeIdCurrent);
+        Log.i("---------",storeId+"");
+        shopName.setText(storeIdCurrent);
+
+        currentId=2;
+        doEvent();
+
         listView=(ListView) findViewById(R.id.listViewfood2);
-        String[] keys={"img","title","detail","price"};
-        int[] ids={R.id.iv_food,R.id.tv_name,R.id.tv_summary,R.id.tv_price};
-        SimpleAdapter simpleAdapter = new SimpleAdapter(ShopFoodActivity.this,lists,R.layout.list_food,keys,ids);
-        listView.setAdapter(simpleAdapter);
-        for (int i=0;i<imgIDs.length;i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",imgIDs[i]);
-            map.put("title",names[i]);
-            map.put("detail","简介："+detail[i]);
-            map.put("price","￥"+prices[i]);
 
-            lists.add(map);}
-
-        View view = LayoutInflater.from(this).inflate(R.layout.list_food,null);
-
-        add1=(ImageView) view.findViewById(R.id.add1);
-        delete1=(ImageView) view.findViewById(R.id.delete1);
-        edit1= (TextView) view.findViewById(R.id.edit1);
-        edit1.setText("0");
-
-        add1.setOnClickListener(new View.OnClickListener() {
+    }
+    private void doEvent(){
+        Request request = new Request.Builder()
+                .url("http://192.168.137.1:8080/practice2/order_findCurrentStore?storeIdCurrent="+currentId)
+                .get()
+                .build();
+        exec(request,1);
+    }
+    private void doEvent2(){
+        Request request = new Request.Builder()
+                .url("http://192.168.137.1:8080/practice2/order_findCurrentFoodByStoreId?storeIdCurrent="+currentId)
+                .get()
+                .build();
+        exec(request,2);
+    }
+    private void exec(Request request, final int flag) {
+        okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onClick(View v) {
-                int num = Integer.parseInt(
-                        TextUtils.isEmpty(edit1.getText().toString()) ? "1" : edit1.getText().toString());
-                edit1.setText(String.valueOf(num + 1));
+            public void onFailure(Call call, IOException e) {
+                //失败
+                Log.i("异常：","--->"+e);
             }
-        });
-        delete1.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                int num = Integer.parseInt(
-                        TextUtils.isEmpty(edit1.getText().toString()) ? "1" : edit1.getText().toString());
-                if(num==0){}
-                else {
-                    edit1.setText(String.valueOf(num - 1));
-                }
+            public void onResponse(Call call, Response response) throws IOException {
+                //成功
+                Log.i("成功：","--->");
+                String s = response.body().string();
+                Message message = new Message();
+                message.what = flag;
+                message.obj = s;
+                handler.sendMessage(message);
             }
         });
     }
-
 }

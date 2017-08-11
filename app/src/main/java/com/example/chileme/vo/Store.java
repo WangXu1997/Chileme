@@ -16,7 +16,7 @@ public class Store {
     private String storeAddress;
     private String storeDistrict;
     private String storeIntroduction;
-    private Float storeGrade;
+    private Integer storeGrade;
     private Integer storeSaleCount;
     private String storePhotoSource;
     private Set orders = new HashSet(0);
@@ -37,7 +37,7 @@ public class Store {
     }
 
     public Store(String storeUsername, String storePassword, String storePhoneNumber, float storeMoney,
-                 String storeAddress, String storeDistrict, String storeIntroduction, Float storeGrade,
+                 String storeAddress, String storeDistrict, String storeIntroduction, Integer storeGrade,
                  Integer storeSaleCount, String storePhotoSource, Set orders, Set favorites, Set foods) {
         this.storeUsername = storeUsername;
         this.storePassword = storePassword;
@@ -118,11 +118,11 @@ public class Store {
         this.storeIntroduction = storeIntroduction;
     }
 
-    public Float getStoreGrade() {
+    public Integer getStoreGrade() {
         return this.storeGrade;
     }
 
-    public void setStoreGrade(Float storeGrade) {
+    public void setStoreGrade(Integer storeGrade) {
         this.storeGrade = storeGrade;
     }
 

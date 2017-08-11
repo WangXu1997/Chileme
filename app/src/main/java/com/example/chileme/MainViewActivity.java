@@ -64,7 +64,7 @@ public class MainViewActivity extends AppCompatActivity {
         //第五步：为下拉列表设置各种事件的响应，这个事响应菜单被选中
         listView=(ListView) findViewById(R.id.listView);
         String[] keys={"img","title","price","check","detail"};
-        int[] ids={R.id.item_img,R.id.item_title,R.id.item_price,R.id.item_check,R.id.item_detail};
+        int[] ids={R.id.item_img2,R.id.text21,R.id.text24,R.id.text25,R.id.text22};
         SimpleAdapter simpleAdapter = new SimpleAdapter(MainViewActivity.this,lists,R.layout.list_item,keys,ids);
         listView.setAdapter(simpleAdapter);
         for (int i=0;i<imgIDs.length;i++){

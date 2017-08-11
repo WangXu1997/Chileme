@@ -13,14 +13,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.chileme.AsyncImageLoader;
 import com.example.chileme.MainFragment;
 import com.example.chileme.R;
 import com.example.chileme.vo.AllOrder;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
@@ -41,10 +39,8 @@ public class AllOrderAdapter extends BaseAdapter {
     private ViewHolder holder;
     Handler handler;
     int count = 0;
-    List<Drawable> drawables=new ArrayList<>();
     Drawable drawable;
-    private AsyncImageLoader asyncImageLoader=new AsyncImageLoader();
-    private String url0 ="http://192.168.56.1:8080/practice2/upload/";
+    private String url0 ="http://192.168.137.1:8080/practice2/upload/";
 
     private OkHttpClient okHttpClient = new OkHttpClient();
     public AllOrderAdapter(Context context, List<AllOrder> data) {
@@ -103,6 +99,7 @@ public class AllOrderAdapter extends BaseAdapter {
                     });
                 }
             });
+
         } else {
             holder = (ViewHolder) v.getTag();
         }
@@ -143,6 +140,15 @@ public class AllOrderAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(mContext,MainFragment.class);
+                intent.putExtra("flag",2);
+
+                mContext.startActivity(intent);
+            }
+        });
 
 
 
